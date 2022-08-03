@@ -3,13 +3,13 @@ import io.kubernetes.client.util.Yaml
 
 class KubernetesModelClassesGen {
 
-    public generate( project, String packageName, String className ) {
+    public static generate( project, String packageName, String className ) {
 
         // Where to write the classes
         File targetDirectory = new File( project.basedir.toString() + '/src/main/java' )
 
-        ClassPath cp = ClassPath.from(Yaml.class.getClassLoader());
-        Set<ClassPath.ClassInfo> allClasses = cp.getTopLevelClasses("io.kubernetes.client.openapi.models");
+        ClassPath cp = ClassPath.from(Yaml.class.getClassLoader())
+        Set<ClassPath.ClassInfo> allClasses = cp.getTopLevelClasses("io.kubernetes.client.openapi.models")
 
         // The directory to write the source to
         File packageDir = new File( targetDirectory, packageName.replace( '.', '/' ) )
@@ -46,7 +46,7 @@ class KubernetesModelClassesGen {
 
         // Now write the source, ensuring the directory exists first
         packageDir.mkdirs()
-        new File( packageDir, className + ".java" ).write( sb.toString() );
+        new File( packageDir, className + ".java" ).write( sb.toString() )
     }
 
 }
